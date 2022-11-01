@@ -1,4 +1,6 @@
 var container=document.querySelector(".container");
+var button=document.getElementById("clear")
+var randomButton=document.getElementById("random-colors");
 function createGrid(numberOfCells){
     var dimensions=((600/numberOfCells)-2).toFixed(2);
     var size=Math.pow(numberOfCells,2);
@@ -25,10 +27,23 @@ function clear(){
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild); // removes all grid squares
             }
-            addDiv(reqGridSize); // create new grid 
-        } else {
+            createGrid(reqGridSize); // create new grid 
+        }
+        else {
             alert ('Choose a number between 1-100'); 
             clear();
         }
 }
+function changeColors(){
+    var x = Math.floor(Math.random() * 256);
+    var y = Math.floor(Math.random() * 256);
+    var z = Math.floor(Math.random() * 256);
+    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    this.style.background=bgColor;
+}
+randomButton.addEventListener('click',function(){
+    var blocks=document.querySelectorAll(".grid");
+    blocks.forEach(block => block.addEventListener('mouseenter',changeColors))
+})
+button.addEventListener('click',clear)
 window.onload=createGrid(16);
